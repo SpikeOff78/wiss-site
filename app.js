@@ -137,8 +137,14 @@ function compter(noeud, cible) {
   requestAnimationFrame(pas);
 }
 
-// Même formule que le bot : niveau = floor(sqrt(xp / 150))
-const xpPourNiveau = (n) => 150 * n * n;
+// Même courbe que le bot : XP totale pour le niveau n = 300 * n²
+const xpPourNiveau = (n) => (n <= 0 ? 0 : 300 * n * n);
+const niveauDepuisXp = (xp) => {
+  let n = xp <= 0 ? 0 : Math.floor(Math.sqrt(xp / 300));
+  while (xpPourNiveau(n + 1) <= xp) n++;
+  while (n > 0 && xpPourNiveau(n) > xp) n--;
+  return n;
+};
 function progression(xp, niveau) {
   const bas = xpPourNiveau(niveau), haut = xpPourNiveau(niveau + 1);
   return Math.max(0, Math.min(100, ((xp - bas) / (haut - bas)) * 100));
@@ -307,8 +313,8 @@ const API_PAS_BRANCHEE = API_URL.includes("REMPLACE-MOI");
 const DEMO = new URLSearchParams(location.search).has("demo") || API_PAS_BRANCHEE;
 function donneesDemo() {
   const top = Array.from({ length: 50 }, (_, i) => {
-    const xp = Math.round(420000 * Math.pow(0.93, i));
-    return { rang: i + 1, pseudo: "Pseudo", avatar: null, exemple: true, niveau: Math.floor(Math.sqrt(xp / 150)), xp };
+    const xp = Math.round(1600000 * Math.pow(0.93, i));
+    return { rang: i + 1, pseudo: "Pseudo", avatar: null, exemple: true, niveau: niveauDepuisXp(xp), xp };
   });
   return {
     pret: true, maj: new Date(Date.now() - 60000).toISOString(),
