@@ -3,159 +3,216 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>WISSKSRR · Le Discord de Wiss</title>
-<meta name="description" content="Le Discord de Wiss : vocal, classement, appels trolls en live.">
-<meta name="theme-color" content="#140708">
-<meta property="og:title" content="WISSKSRR · Le Discord de Wiss">
-<meta property="og:description" content="Le Discord de Wiss : vocal, classement, appels trolls en live.">
+<title>WISSKSRR · Le QG de la commu</title>
+<meta name="description" content="Le Discord de Wiss : vocal, classement en direct, appels trolls et lives Twitch. Rejoins la commu.">
+<meta name="theme-color" content="#0B0506">
+<link rel="canonical" href="https://wiss-site.vercel.app/">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='%23FF2D3D' stroke='%23000' stroke-width='4'/%3E%3Ctext x='32' y='45' font-family='Arial Black,sans-serif' font-size='34' font-weight='900' fill='%231A0A10' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:site_name" content="WISSKSRR">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="WISSKSRR · Le QG de la commu">
+<meta property="og:description" content="Le Discord de Wiss : vocal, classement en direct, appels trolls et lives Twitch. Rejoins la commu.">
+<meta property="og:url" content="https://wiss-site.vercel.app/">
+<meta property="og:image" content="https://wiss-site.vercel.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="WISSKSRR, le QG de la commu">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WISSKSRR · Le QG de la commu">
+<meta name="twitter:description" content="Le Discord de Wiss : vocal, classement en direct, appels trolls et lives Twitch. Rejoins la commu.">
+<meta name="twitter:image" content="https://wiss-site.vercel.app/assets/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FF2D3D'/%3E%3Ctext x='32' y='45' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' fill='%23fff' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://wiss-bot-app.onrender.com" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="index">
 <a class="sr-only" href="#contenu">Aller au contenu</a>
-<header class="entete" id="entete">
-  <div class="conteneur entete-inner">
-    <a class="logo" href="index.html"><span class="logo-w" aria-hidden="true">W</span>WISSKSRR</a>
-    <nav class="nav" id="nav" aria-label="Navigation principale">
-      <a href="index.html" aria-current="page">Accueil</a>
-      <a href="classement.html">Classement</a>
-      <a href="niveaux.html">Niveaux</a>
-      <a href="commandes.html">Commandes</a>
-      <a href="reglement.html">Règlement</a>
+<header class="nav" id="nav">
+  <div class="conteneur nav-inner">
+    <a class="logo" href="index.html" aria-label="WISSKSRR, accueil"><span class="logo-w" aria-hidden="true">W</span>WISSKSRR</a>
+    <nav class="nav-liens" id="nav-liens" aria-label="Navigation principale">
+        <a href="index.html" aria-current="page">Accueil</a>
+        <a href="classement.html">Classement</a>
+        <a href="niveaux.html">Niveaux</a>
+        <a href="commandes.html">Commandes</a>
+        <a href="reglement.html">Règlement</a>
+        <a class="btn btn-principal nav-discord-mobile" href="https://discord.gg/wiss" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1a15.6 15.6 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.8 9.2 1 13 1.4 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.5-4.4-.8-8.2-3-11.5ZM8.7 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg> Rejoindre le Discord</a>
     </nav>
-    <a class="btn btn-rouge btn-petit" href="https://discord.gg/wiss" target="_blank" rel="noopener">Rejoindre le Discord</a>
-    <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+    <a class="btn btn-principal btn-petit nav-discord" href="https://discord.gg/wiss" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1a15.6 15.6 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.8 9.2 1 13 1.4 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.5-4.4-.8-8.2-3-11.5ZM8.7 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg> Discord</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-liens"><span></span></button>
   </div>
 </header>
 <main id="contenu">
-  <section class="hero">
-    <div class="conteneur hero-grille">
-      <div class="hero-texte">
-        <a class="sticker sticker-sombre statut-live" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener"><span class="point" aria-hidden="true"></span><span class="statut-texte">Twitch · wissksrr</span></a>
-        <h1><span class="souligne">Le QG</span><span class="ligne-2">de Wiss.</span></h1>
-        <p class="accroche">Vocal, classement, appels trolls en live.</p>
-        <div class="actions">
-          <a class="btn btn-rouge" href="https://discord.gg/wiss" target="_blank" rel="noopener">Rejoindre le Discord</a>
-          <a class="btn btn-clair" href="classement.html">Voir le classement</a>
-        </div>
+<section class="hero">
+  <div class="conteneur hero-grille">
+    <div>
+      <a class="pastille-live" id="pastille-live" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener"><span class="point" aria-hidden="true"></span><span class="texte">Twitch · wissksrr</span></a>
+      <h1>WISSKSRR<span class="hero-slogan">LE QG DE LA COMMU.</span></h1>
+      <p class="hero-desc">Vocal, classement, appels trolls, lives et beaucoup de délire.</p>
+      <div class="hero-actions">
+        <a class="btn btn-principal" href="https://discord.gg/wiss" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1a15.6 15.6 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.8 9.2 1 13 1.4 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.5-4.4-.8-8.2-3-11.5ZM8.7 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg> REJOINDRE LE DISCORD</a>
+        <a class="btn btn-secondaire" href="classement.html">VOIR LE CLASSEMENT</a>
       </div>
-
-      <div class="pile" aria-label="Le serveur en ce moment">
-        <span class="sticker sticker-neon s1"><b id="c-membres" class="chargement">0000</b>&nbsp;membres</span>
-        <a class="carte-top1" href="classement.html">
-          <span class="label">N°1 du serveur</span>
-          <div class="qui" id="top1-qui"><div class="avatar chargement" aria-hidden="true"></div><span class="pseudo chargement">Pseudo</span></div>
-          <div class="badges"><span id="top1-niv">Niv. —</span><span id="top1-xp">— XP</span></div>
-        </a>
-        <span class="sticker sticker-clair s2"><span class="point" style="background:#22C55E;opacity:1" aria-hidden="true"></span><b id="c-en-ligne" class="chargement">000</b>&nbsp;en ligne</span>
-        <span class="sticker sticker-rouge s3">Niv. max&nbsp;<b id="c-niv-max" class="chargement">00</b></span>
-      </div>
+      <p class="hero-preuve" id="hero-preuve" hidden><span><b id="hp-membres"></b> membres</span><span><span class="point-vert" aria-hidden="true"></span><b id="hp-en-ligne"></b> en ligne</span></p>
     </div>
-  </section>
 
-  <div class="bandeau" aria-hidden="true">
-    <div class="bandeau-piste"><span>Appels trolls</span><span>Classement</span><span>Vocal</span><span>Level-up</span><span>Clips</span><span>Tickets</span><span>Appels trolls</span><span>Classement</span><span>Vocal</span><span>Level-up</span><span>Clips</span><span>Tickets</span><span>Appels trolls</span><span>Classement</span><span>Vocal</span><span>Level-up</span><span>Clips</span><span>Tickets</span><span>Appels trolls</span><span>Classement</span><span>Vocal</span><span>Level-up</span><span>Clips</span><span>Tickets</span></div>
+    <aside class="carte widget" aria-label="Le serveur en ce moment">
+      <div class="widget-tete">
+        <img class="widget-icone" id="w-icone" src="assets/wiss.webp" alt="" width="56" height="56">
+        <div><div class="widget-nom">WISSKSRR</div><div class="widget-sous">Serveur Discord de Wiss</div></div>
+      </div>
+      <div class="widget-stats">
+        <div class="widget-stat"><b class="squelette" id="w-membres">0000</b><span>membres</span></div>
+        <div class="widget-stat"><b class="squelette" id="w-en-ligne">000</b><span>en ligne</span></div>
+      </div>
+      <a class="widget-top1" id="w-top1" href="classement.html">
+        <div class="avatar squelette" aria-hidden="true"></div>
+        <div><span class="label">🥇 N°1 du serveur</span><span class="pseudo squelette">Chargement</span><span class="detail">&nbsp;</span></div>
+      </a>
+    </aside>
   </div>
+</section>
 
-  <section class="section">
-    <div class="conteneur">
-      <div class="section-titre"><h2>C'est quoi ?</h2></div>
-      <div class="trois">
-        <div class="bloc bloc-rouge"><h3>Parle.</h3><p>Chaque message te rapporte de l'XP.</p></div>
-        <div class="bloc bloc-neon"><h3>Grimpe.</h3><p>6 paliers. 6 rôles à débloquer.</p></div>
-        <div class="bloc bloc-contour"><h3>Rigole.</h3><p>Les appels trolls de Wiss, en live.</p></div>
-      </div>
+<section class="section" style="padding-top:0">
+  <div class="conteneur">
+    <div class="stats" data-apparition>
+      <div class="carte stat"><span class="stat-icone" aria-hidden="true">👥</span><span class="stat-valeur squelette" id="s-membres">0</span><span class="stat-libelle">Membres</span></div>
+      <div class="carte stat"><span class="stat-icone" aria-hidden="true">🟢</span><span class="stat-valeur squelette" id="s-en-ligne">0</span><span class="stat-libelle">En ligne</span></div>
+      <div class="carte stat"><span class="stat-icone" aria-hidden="true">🏆</span><span class="stat-valeur squelette" id="s-niv-max">0</span><span class="stat-libelle">Niveau max</span></div>
+      <div class="carte stat"><span class="stat-icone" aria-hidden="true">⚡</span><span class="stat-valeur squelette" id="s-xp">0</span><span class="stat-libelle">XP distribuée</span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="conteneur wiss">
-      <figure class="wiss-photo">
-        <img src="assets/wiss.webp" alt="Wiss, debout sous un lampadaire le soir" width="720" height="1090" loading="lazy">
-        <span class="sticker sticker-rouge wiss-onair"><span class="point" aria-hidden="true"></span>On air</span>
-      </figure>
-      <div class="wiss-texte">
-        <span class="sticker sticker-sombre">Le boss</span>
-        <h2>Wiss.</h2>
-        <p>Streamer. Appels trolls en direct, le soir sur Twitch.</p>
-        <p class="wiss-petit">Le serveur, c'est là où la commu se retrouve entre deux lives.</p>
-        <div class="actions">
-          <a class="btn btn-rouge" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener">Sa chaîne Twitch</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section" style="padding-top:0">
+  <div class="conteneur duo">
+    <article class="carte live" id="live" data-apparition>
+      <span class="live-statut"><span class="point" aria-hidden="true"></span><span id="live-statut">Statut du live…</span></span>
+      <div class="live-media" id="live-media"><div class="hors"><b>Twitch</b>Récupération du statut…</div></div>
+      <p class="live-titre" id="live-titre" hidden></p>
+      <p class="live-sous" id="live-sous" hidden></p>
+      <a class="btn btn-principal" id="live-btn" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener">VOIR LA CHAÎNE TWITCH</a>
+    </article>
 
-  <section class="section">
-    <div class="conteneur">
-      <div class="section-titre"><h2>En chiffres</h2><a class="lien" href="classement.html">Le classement →</a></div>
-      <div class="chiffres">
-        <div class="chiffre"><span class="valeur chargement" id="s-classes">0000</span><span class="libelle">membres classés</span></div>
-        <div class="chiffre"><span class="valeur chargement" id="s-xp">0000</span><span class="libelle">XP distribuée</span></div>
-        <div class="chiffre"><span class="valeur chargement" id="s-max">00</span><span class="libelle">niveau max</span></div>
-        <div class="chiffre"><span class="valeur chargement" id="s-actifs">000</span><span class="libelle">actifs cette semaine</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="conteneur">
-      <div class="section-titre"><h2>Suis Wiss</h2></div>
-      <ul class="reseaux">
-      <li><a href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener" style="--hover:#BF94FF"><span class="nom">Twitch</span><span class="compte">twitch.tv/wissksrr</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-      <li><a href="https://www.youtube.com/@wissksrrr" target="_blank" rel="noopener" style="--hover:#FF6B6B"><span class="nom">YouTube</span><span class="compte">@wissksrrr</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-      <li><a href="https://www.tiktok.com/@wiss.fr" target="_blank" rel="noopener" style="--hover:#5CF2E8"><span class="nom">TikTok</span><span class="compte">@wiss.fr</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-      <li><a href="https://www.instagram.com/wissksr/" target="_blank" rel="noopener" style="--hover:#FF5FA2"><span class="nom">Instagram</span><span class="compte">@wissksr</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
-      <li><a href="https://www.snapchat.com/add/wissksrr" target="_blank" rel="noopener" style="--hover:#FFD60A"><span class="nom">Snapchat</span><span class="compte">wissksrr</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+    <article class="carte activite" data-apparition>
+      <h3>⚡ Activité récente</h3>
+      <ul class="fil" id="fil-activite">
+        <li><div class="avatar squelette"></div><span class="quoi squelette">Chargement de l'activité</span><span></span></li>
+        <li><div class="avatar squelette"></div><span class="quoi squelette">Chargement de l'activité</span><span></span></li>
+        <li><div class="avatar squelette"></div><span class="quoi squelette">Chargement de l'activité</span><span></span></li>
       </ul>
-    </div>
-  </section>
+    </article>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="conteneur">
-      <div class="gaza">
-        <div class="gaza-texte">
-          <h2>On soutient Gaza.</h2>
-          <p>Médecins Sans Frontières soigne les blessés sur place, avec les soignants locaux.</p>
-          <p>MSF vit surtout des dons privés. Si tu peux, donne. Chaque geste compte.</p>
-          <a class="btn btn-gaza" href="https://soutenir.msf.fr/fonds-urgence-gaza/~mon-don" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>
-            Faire un don à MSF
-          </a>
-          <p class="gaza-note">Le don va directement à Médecins Sans Frontières. WISSKSRR ne touche rien.</p>
-        </div>
-        <img class="gaza-photo" src="assets/gaza.webp" alt="Un enfant brandit le drapeau palestinien à la fenêtre d'un immeuble détruit" width="720" height="717" loading="lazy">
+<section class="section" style="padding-top:0">
+  <div class="conteneur duo">
+    <div data-apparition>
+      <div class="section-tete"><div><span class="surtitre">Classement</span><h2 style="margin-top:10px">Les plus actifs</h2></div><a class="lien-fleche" href="classement.html">Tout le classement →</a></div>
+      <ol class="carte mini-top" id="mini-top">
+        <li><a href="classement.html"><span class="rang">1</span><div class="avatar squelette"></div><span class="pseudo squelette">Chargement</span><span class="xp"></span></a></li>
+        <li><a href="classement.html"><span class="rang">2</span><div class="avatar squelette"></div><span class="pseudo squelette">Chargement</span><span class="xp"></span></a></li>
+        <li><a href="classement.html"><span class="rang">3</span><div class="avatar squelette"></div><span class="pseudo squelette">Chargement</span><span class="xp"></span></a></li>
+      </ol>
+    </div>
+    <div data-apparition>
+      <div class="section-tete"><div><span class="surtitre">Comment ça marche</span><h2 style="margin-top:10px">Parle. Grimpe. Débloque.</h2></div></div>
+      <div class="etapes" style="grid-template-columns:1fr">
+        <div class="carte etape"><span class="etape-num">01 · PARLE</span><h3>Chaque message rapporte de l'XP</h3><p>10 à 30 XP par message, et du bonus en vocal.</p></div>
+        <div class="carte etape"><span class="etape-num">02 · GRIMPE</span><h3>6 rôles à débloquer</h3><p>De Petit de Paname à Le Hajj. <a class="lien-fleche" href="niveaux.html">Voir les niveaux →</a></p></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="final">
-    <div class="conteneur final-inner">
-      <h2>On t'attend.</h2>
-      <a class="btn btn-clair" href="https://discord.gg/wiss" target="_blank" rel="noopener">Rejoindre le Discord</a>
+<section class="section">
+  <div class="conteneur wiss" data-apparition>
+    <figure class="wiss-photo"><img src="assets/wiss.webp" alt="Wiss, debout sous un lampadaire le soir" width="720" height="1090" loading="lazy"></figure>
+    <div class="wiss-texte">
+      <span class="surtitre">Le boss</span>
+      <h2>Wiss.</h2>
+      <p>Streamer. Appels trolls en direct, le soir sur Twitch.</p>
+      <p>Le serveur, c'est là où la commu se retrouve entre deux lives.</p>
+      <div class="hero-actions"><a class="btn btn-secondaire" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener">Sa chaîne Twitch</a></div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="conteneur" data-apparition>
+    <div class="section-tete"><div><span class="surtitre">Réseaux</span><h2 style="margin-top:10px">Suis Wiss</h2></div></div>
+    <ul class="reseaux">
+      <li><a class="carte carte-survol" href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener" style="--couleur:#BF94FF"><span class="nom">Twitch<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="compte">wissksrr</span></a></li>
+      <li><a class="carte carte-survol" href="https://www.youtube.com/@wissksrrr" target="_blank" rel="noopener" style="--couleur:#FF6B6B"><span class="nom">YouTube<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="compte">@wissksrrr</span></a></li>
+      <li><a class="carte carte-survol" href="https://www.tiktok.com/@wiss.fr" target="_blank" rel="noopener" style="--couleur:#5CF2E8"><span class="nom">TikTok<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="compte">@wiss.fr</span></a></li>
+      <li><a class="carte carte-survol" href="https://www.instagram.com/wissksr/" target="_blank" rel="noopener" style="--couleur:#FF5FA2"><span class="nom">Instagram<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="compte">@wissksr</span></a></li>
+      <li><a class="carte carte-survol" href="https://www.snapchat.com/add/wissksrr" target="_blank" rel="noopener" style="--couleur:#FFD60A"><span class="nom">Snapchat<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="compte">wissksrr</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="conteneur">
+    <div class="carte gaza" data-apparition>
+      <div class="gaza-texte">
+        <span class="drapeau" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <h2>On soutient Gaza.</h2>
+        <p>Médecins Sans Frontières soigne les blessés sur place, avec les soignants locaux.</p>
+        <p>MSF vit surtout des dons privés. Si tu peux, donne. Chaque geste compte.</p>
+        <a class="btn" href="https://soutenir.msf.fr/fonds-urgence-gaza/~mon-don" target="_blank" rel="noopener">Faire un don à MSF</a>
+        <p class="gaza-note">Le don va directement à Médecins Sans Frontières. WISSKSRR ne touche rien.</p>
+      </div>
+      <img class="gaza-photo" src="assets/gaza.webp" alt="Un enfant brandit le drapeau palestinien à la fenêtre d'un immeuble détruit" width="720" height="717" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="conteneur">
+    <div class="carte final" data-apparition>
+      <h2>On t'attend.</h2>
+      <p>Rejoins le serveur, parle en vocal et grimpe dans le classement.</p>
+      <a class="btn btn-principal" href="https://discord.gg/wiss" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1a15.6 15.6 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.8 9.2 1 13 1.4 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.5-4.4-.8-8.2-3-11.5ZM8.7 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg> REJOINDRE LE DISCORD</a>
+    </div>
+  </div>
+</section>
 </main>
 <footer class="pied">
   <div class="conteneur">
-    <div class="marque-geante" aria-hidden="true">WISSKSRR</div>
-    <div class="pied-inner">
+    <div class="pied-grille">
+      <div class="pied-marque">
+        <a class="logo" href="index.html"><span class="logo-w" aria-hidden="true">W</span>WISSKSRR</a>
+        <p>Le QG de la communauté. Vocal, classement, appels trolls et lives.</p>
+      </div>
+      <div>
+        <h3>Communauté</h3>
+        <ul>
+          <li><a href="https://discord.gg/wiss" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://www.twitch.tv/wissksrr" target="_blank" rel="noopener">Twitch</a></li>
+          <li><a href="https://www.youtube.com/@wissksrrr" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Le site</h3>
+        <ul>
+          <li><a href="classement.html">Classement</a></li>
+          <li><a href="niveaux.html">Niveaux</a></li>
+          <li><a href="commandes.html">Commandes</a></li>
+          <li><a href="reglement.html">Règlement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pied-bas">
       <span>© <span class="annee">2026</span> WISSKSRR · Non affilié à Discord ni à Twitch.</span>
-      <nav aria-label="Liens du pied de page">
-        <a href="https://discord.gg/wiss" target="_blank" rel="noopener">Discord</a>
-        <a href="mentions.html">Mentions légales</a>
-        <a href="mailto:iliaswebpro@gmail.com">iliaswebpro@gmail.com</a>
-      </nav>
+      <span><a href="mentions.html">Mentions légales</a> · <a href="mailto:iliaswebpro@gmail.com">iliaswebpro@gmail.com</a></span>
     </div>
   </div>
 </footer>
-<div class="halo" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="app.js" defer></script>
 </body>
 </html>
