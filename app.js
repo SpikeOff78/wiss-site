@@ -462,8 +462,21 @@ function rendreClassement(d) {
       infos.append(el("span", "pseudo", "Place libre"), el("span", "niv", "À prendre"));
       carte.append(el("span", "medaille", medaille), avatar(null), infos);
     }
+    carte.prepend(el("span", "pc-reflet"));
+    carte.style.setProperty("--n", { 2: 0, 1: 1, 3: 2 }[rang]);
+    if (!calme && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      carte.addEventListener("pointermove", (e) => {
+        const r = carte.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        carte.classList.add("incline");
+        carte.style.setProperty("--ry", `${((x - 0.5) * 16).toFixed(2)}deg`);
+        carte.style.setProperty("--rx", `${((0.5 - y) * 14).toFixed(2)}deg`);
+        carte.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`); carte.style.setProperty("--gy", `${(y * 100).toFixed(1)}%`);
+      });
+      carte.addEventListener("pointerleave", () => { carte.classList.remove("incline"); carte.style.setProperty("--rx", "0deg"); carte.style.setProperty("--ry", "0deg"); });
+    }
     podium.append(carte);
   });
+  if (!etatCl.podiumVu) { etatCl.podiumVu = true; podium.classList.add("entree"); }
 
   // ?user=PSEUDO : on affiche assez de lignes pour qu'il soit visible
   if (etatCl.cible && !etatCl.cibleFaite) {
@@ -479,8 +492,9 @@ function ligneMembre(m) {
   if ((pseudoMoi && normaliser(m.pseudo) === pseudoMoi) || (cible && normaliser(m.pseudo) === cible)) li.classList.add("moi");
   li.tabIndex = 0; li.setAttribute("role", "button"); li.setAttribute("aria-label", `Profil de ${m.pseudo}, rang ${m.rang}`);
   const p = progression(m.xp, m.niveau);
-  const prog = el("div", "progression"); prog.append(el("span", "niv", `Niv. ${m.niveau}`), barre(p.pct));
-  li.append(el("span", "rang", m.rang <= 3 ? ["🥇", "🥈", "🥉"][m.rang - 1] : `#${m.rang}`), avatar(m), el("span", "pseudo", m.pseudo), prog, el("span", "xp", `${nombre(m.xp)} XP`));
+  const prog = el("div", "progression"); prog.append(el("span", "niv", etatCl.tri === "niveau" ? `${nombre(m.xp)} XP` : `Niv. ${m.niveau}`), barre(p.pct));
+  const droite = etatCl.tri === "niveau" ? el("span", "xp xp-niveau", `Niv. ${m.niveau}`) : el("span", "xp", `${nombre(m.xp)} XP`);
+  li.append(el("span", "rang", m.rang <= 3 ? ["🥇", "🥈", "🥉"][m.rang - 1] : `#${m.rang}`), avatar(m), el("span", "pseudo", m.pseudo), prog, droite);
   li.addEventListener("click", () => ouvrirProfil(m, etatCl.total));
   li.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ouvrirProfil(m, etatCl.total); } });
   return li;
@@ -494,9 +508,31 @@ function trier(liste) {
   return l;
 }
 
+// Les lignes apparaissent une à une quand on défile (une seule fois par ligne, pas à chaque rafraîchissement)
+const lignesVues = new Set();
+const obsLignes = ("IntersectionObserver" in window && !calme) ? new IntersectionObserver((entrees) => {
+  let k = 0;
+  entrees.forEach((en) => {
+    if (!en.isIntersecting) return;
+    const n = en.target; obsLignes.unobserve(n);
+    n.style.setProperty("--k", k++);
+    n.classList.add("vue"); setTimeout(() => n.classList.add("fini"), 900 + k * 70);
+    if (n.dataset.cle) lignesVues.add(n.dataset.cle);
+  });
+}, { rootMargin: "0px 0px -6% 0px" }) : null;
+function observerLignes(racine) {
+  $$(".ligne, .groupe", racine).forEach((n) => {
+    const cle = n.classList.contains("ligne") ? n.getAttribute("aria-label") : `g:${n.textContent}`;
+    n.dataset.cle = `${etatCl.tri}|${cle}`;
+    if (!obsLignes || lignesVues.has(n.dataset.cle)) { n.classList.add("vue", "deja"); return; }
+    n.classList.add("a-reveler"); obsLignes.observe(n);
+  });
+}
+
 function dessinerListe() {
   const liste = $("#liste"), plus = $("#plus"), horsTop = $("#hors-top");
   if (!liste) return;
+  requestAnimationFrame(() => observerLignes(liste));
   liste.replaceChildren(); horsTop.replaceChildren();
   const q = normaliser(etatCl.q);
 
@@ -553,7 +589,7 @@ function chercherHorsTop(q, nbLocaux) {
     const autres = r.resultats.filter((m) => m.rang > 50);
     if (autres.length) {
       zone.append(el("p", "groupe", "Hors du top 50"));
-      const ul = el("ol", "liste"); autres.forEach((m) => ul.append(ligneMembre(m))); zone.append(ul);
+      const ul = el("ol", "liste"); autres.forEach((m) => ul.append(ligneMembre(m))); zone.append(ul); observerLignes(ul);
     } else if (!nbLocaux) {
       const v = el("div", "message-vide");
       v.append(el("b", null, "Aucun résultat"), r.horsLigne ? "Le bot ne répond pas : recherche limitée au top 50." : "Aucun membre classé ne correspond à cette recherche.");
@@ -679,7 +715,7 @@ if (["index", "classement", "niveaux"].includes(PAGE)) {
 /* ============================================================ Accueil : effets */
 if (PAGE === "index") {
   const fin = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const hx = $("#hx"), barre = $("#progression"), echo = $(".boss-echo span"), boss = $("#boss");
+  const hx = $("#hx"), barre = $("#barre-lecture"), echo = $(".boss-echo span"), boss = $("#boss");
 
   // Défilement : barre de lecture, héros qui s'efface, écho « WISS » qui glisse
   let tic = false;
@@ -750,5 +786,43 @@ if (PAGE === "index") {
   if (photo) {
     photo.addEventListener("click", () => { if (!fin) photo.classList.toggle("revele"); });
     photo.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); photo.classList.toggle("revele"); } });
+  }
+}
+
+/* ============================================================ Niveaux : frise animée au défilement */
+if (PAGE === "niveaux") {
+  const frise = $("#frise"), paliers = $$(".palier");
+  const compterSeuil = (n) => {
+    const s = $(".seuil", n); if (!s || s.dataset.fait) return;
+    s.dataset.fait = 1;
+    const cible = Number(s.textContent.replace(/\D/g, "")); if (!cible || calme) return;
+    const t0 = performance.now(), duree = 1100;
+    const pas = (t) => {
+      const p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 4);
+      s.textContent = `${fmt.format(Math.round(cible * e))} XP`;
+      if (p < 1) requestAnimationFrame(pas);
+    };
+    requestAnimationFrame(pas);
+  };
+  if (calme || !("IntersectionObserver" in window)) {
+    paliers.forEach((n) => n.classList.add("allume"));
+    frise.style.setProperty("--f", 1);
+  } else {
+    frise.classList.add("anime");
+    const obs = new IntersectionObserver((entrees) => entrees.forEach((en) => {
+      if (!en.isIntersecting) return;
+      obs.unobserve(en.target); en.target.classList.add("allume"); setTimeout(() => compterSeuil(en.target), 250);
+    }), { rootMargin: "0px 0px -22% 0px" });
+    paliers.forEach((n, i) => { n.style.setProperty("--cote", i % 2 ? 1 : -1); obs.observe(n); });
+    let tic = false;
+    const remplir = () => {
+      if (tic) return; tic = true;
+      requestAnimationFrame(() => {
+        tic = false;
+        const r = frise.getBoundingClientRect(), repere = innerHeight * 0.72;
+        frise.style.setProperty("--f", Math.min(1, Math.max(0, (repere - r.top) / r.height)).toFixed(4));
+      });
+    };
+    addEventListener("scroll", remplir, { passive: true }); addEventListener("resize", remplir); remplir();
   }
 }

@@ -533,7 +533,7 @@ code, .code { font: 600 14px/1 var(--mono); padding: 4px 8px; border-radius: 7px
 :root { --ressort: cubic-bezier(.34, 1.56, .64, 1); --doux: cubic-bezier(.2, .7, .2, 1); }
 
 /* Barre de progression de lecture */
-.progression { position: fixed; top: 0; left: 0; z-index: 60; height: 2px; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--accent), #FF8A93); box-shadow: 0 0 12px rgba(255, 45, 61, .7); pointer-events: none; }
+.barre-lecture { position: fixed; top: 0; left: 0; z-index: 60; height: 2px; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--accent), #FF8A93); box-shadow: 0 0 12px rgba(255, 45, 61, .7); pointer-events: none; }
 
 /* Apparitions en cascade */
 [data-apparition] { transition: opacity .8s var(--doux), transform .9s var(--doux); transition-delay: calc(var(--i, 0) * 110ms); transform: translateY(26px); }
@@ -788,4 +788,87 @@ code, .code { font: 600 14px/1 var(--mono); padding: 4px 8px; border-radius: 7px
   .hx-anneau, .hx-orbe, .hx-eclat, .bandeau-piste, .badge-tournant > text, .fin-halo, .boss-titre span, .fin-titre .point-rouge, .hx-sticker, .pal-sticker, .pal-drapeau, .activite .eclair, .hx-defile i::after { animation: none !important; }
   .hx-texte { transform: none; opacity: 1; }
   [data-apparition] { transform: none; transition: none; }
+}
+
+/* ============================================================
+   CLASSEMENT — podium vivant + lignes au défilement
+   ============================================================ */
+.podium { perspective: 1100px; }
+.podium-carte { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .6s var(--doux), box-shadow .4s, border-color .3s; will-change: transform; }
+.podium-carte.incline { transition: transform .1s linear, box-shadow .4s, border-color .3s; }
+.podium-carte:hover { border-color: color-mix(in srgb, var(--medaille) 55%, transparent); box-shadow: 0 30px 70px rgba(0, 0, 0, .55), 0 0 60px color-mix(in srgb, var(--medaille) 25%, transparent); }
+.pc-reflet { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(360px circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, var(--medaille) 26%, transparent), transparent 55%); }
+.podium-carte:hover .pc-reflet { opacity: 1; }
+.podium-carte > * { position: relative; z-index: 1; }
+.podium-carte > .pc-reflet { position: absolute; z-index: 0; }
+/* reflet qui traverse la carte au survol */
+.podium-carte .medaille { transition: transform .6s var(--ressort); transform-origin: 50% 0; }
+.podium-carte:hover .medaille { animation: balancier 1.1s ease-in-out infinite; }
+@keyframes balancier { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg) translateY(-2px); } }
+.podium-carte .avatar { transition: transform .6s var(--ressort), box-shadow .4s; }
+.podium-carte:hover .avatar { transform: translateY(-6px) scale(1.1) rotate(-4deg); box-shadow: 0 0 0 3px var(--fond), 0 0 0 5px var(--medaille), 0 16px 40px color-mix(in srgb, var(--medaille) 45%, transparent); }
+.podium-carte .pseudo { transition: color .3s, letter-spacing .4s var(--doux); }
+.podium-carte:hover .pseudo { color: var(--medaille); }
+.podium-carte .xp { transition: transform .45s var(--ressort); }
+.podium-carte:hover .xp { transform: scale(1.12); }
+.podium-carte .barre i { box-shadow: 0 0 0 transparent; transition: width 1s cubic-bezier(.2, .8, .2, 1), box-shadow .3s; }
+.podium-carte:hover .barre i { box-shadow: 0 0 14px rgba(255, 45, 61, .8); }
+.podium-carte .barre::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent); transform: translateX(-100%); }
+.podium-carte .barre { position: relative; }
+.podium-carte:hover .barre::after { animation: balayage 1.2s var(--doux); }
+@keyframes balayage { to { transform: translateX(100%); } }
+.podium-carte::before { transition: height .4s var(--ressort); }
+.podium-carte:hover::before { height: 5px; }
+/* n°1 : étincelles dorées */
+.podium-carte.p1 .infos::before { content: "✦"; position: absolute; top: -78px; right: -26px; color: var(--or); font-size: 16px; opacity: 0; transition: opacity .3s; }
+.podium-carte.p1:hover .infos::before { opacity: 1; animation: scintille 1.4s ease-in-out infinite; }
+/* entrée du podium : 2 puis 1 puis 3 qui montent */
+.podium.entree .podium-carte { animation: monte-podium .9s var(--ressort) backwards; animation-delay: calc(.1s + var(--n) * .14s); }
+@keyframes monte-podium { from { opacity: 0; transform: translateY(60px) scale(.94); } }
+
+/* lignes du classement */
+.ligne.a-reveler { opacity: 0; transform: translateX(-46px) scale(.98); filter: blur(4px); }
+.ligne.a-reveler.vue { opacity: 1; transform: none; filter: none; transition: opacity .6s var(--doux), transform .7s var(--ressort), filter .6s, background .2s, border-color .2s; transition-delay: calc(var(--k, 0) * 70ms); }
+.ligne.a-reveler:not(.vue) .barre i { width: 0 !important; }
+.ligne.a-reveler.vue.fini { transition-delay: 0s; }
+.ligne.a-reveler.vue:hover { transform: translateX(4px); }
+.groupe.a-reveler { opacity: 0; transform: translateX(-20px); }
+.groupe.a-reveler.vue { opacity: 1; transform: none; transition: opacity .5s, transform .6s var(--ressort); }
+.ligne { position: relative; overflow: hidden; }
+.ligne::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: scaleY(0); transition: transform .35s var(--ressort); }
+.ligne:hover::before, .ligne.moi::before { transform: scaleY(1); }
+.ligne:hover { transform: translateX(4px); }
+.ligne .avatar { transition: transform .45s var(--ressort); }
+.ligne:hover .avatar { transform: scale(1.12) rotate(-6deg); }
+.ligne .xp-niveau { font: 800 17px/1 var(--titre); color: var(--texte); letter-spacing: -.01em; }
+
+/* ============================================================
+   NIVEAUX — frise qui se remplit au défilement
+   ============================================================ */
+.frise.anime::before { background: rgba(255, 255, 255, .08); }
+.frise.anime::after { content: ""; position: absolute; left: 27px; top: 12px; bottom: 12px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent), #FF8A93); transform-origin: 50% 0; transform: scaleY(var(--f, 0)); box-shadow: 0 0 14px rgba(255, 45, 61, .9); z-index: 0; }
+.frise.anime .palier .palier-noeud { transform: scale(.4); opacity: .3; transition: transform .7s var(--ressort), opacity .4s, background .4s, border-color .4s, box-shadow .6s, color .4s; }
+.frise.anime .palier .palier-carte { opacity: 0; transform: translateX(-60px) translateY(10px) scale(.97); filter: blur(6px); transition: opacity .7s var(--doux), transform .9s var(--ressort), filter .7s, box-shadow .4s, border-color .3s; }
+.frise.anime .palier.allume .palier-noeud { transform: none; opacity: 1; border-color: var(--couleur-role, var(--accent)); box-shadow: 0 0 0 6px var(--fond), 0 0 28px color-mix(in srgb, var(--couleur-role, var(--accent)) 70%, transparent); animation: impact .9s var(--ressort); }
+.frise.anime .palier.allume .palier-carte { opacity: 1; transform: none; filter: none; transition-delay: .12s; }
+@keyframes impact { 0% { transform: scale(.4); } 55% { transform: scale(1.28); } 100% { transform: scale(1); } }
+.palier-noeud::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 2px solid var(--couleur-role, var(--accent)); opacity: 0; }
+.frise.anime .palier.allume .palier-noeud::after { animation: onde 1.1s ease-out .15s; }
+@keyframes onde { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(2.2); } }
+.palier-carte { position: relative; overflow: hidden; isolation: isolate; }
+.palier-carte::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--couleur-role, var(--accent)) 35%, transparent) 50%, transparent 80%); transform: translateX(-110%); }
+.frise.anime .palier.allume .palier-carte::after { animation: flash-role 1.3s var(--doux) .3s; }
+@keyframes flash-role { to { transform: translateX(110%); } }
+.palier-carte .role > span[aria-hidden] { display: inline-block; transition: transform .6s var(--ressort); }
+.frise.anime .palier.allume .role > span[aria-hidden] { animation: emoji-pop .9s var(--ressort) .35s backwards; }
+@keyframes emoji-pop { from { transform: scale(0) rotate(-90deg); } }
+.palier-carte:hover { transform: translateX(6px) !important; border-color: var(--bord-2); box-shadow: 0 20px 50px rgba(0, 0, 0, .45), -6px 0 30px color-mix(in srgb, var(--couleur-role, var(--accent)) 30%, transparent); }
+.palier-carte:hover .role > span[aria-hidden] { transform: scale(1.3) rotate(-10deg); }
+.palier:hover .palier-noeud { transform: scale(1.1) rotate(-6deg) !important; }
+.palier.atteint .palier-noeud { background: var(--accent) !important; color: #fff; }
+.palier.atteint .palier-carte .seuil::before { content: "✓ "; color: var(--vert); }
+@media (prefers-reduced-motion: reduce) {
+  .podium.entree .podium-carte, .podium-carte:hover .medaille, .podium-carte:hover .barre::after { animation: none !important; }
+  .ligne.a-reveler { opacity: 1; transform: none; filter: none; }
 }
