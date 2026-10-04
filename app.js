@@ -261,10 +261,6 @@ function rendreAccueil(d) {
   if (icone) $("#w-icone").src = icone;
   compter($("#w-membres"), s.membres);
   compter($("#w-en-ligne"), s.en_ligne);
-  compter($("#s-membres"), s.membres);
-  compter($("#s-en-ligne"), s.en_ligne);
-  compter($("#s-niv-max"), st.niveau_max);
-  compter($("#s-xp"), st.xp_total);
   if (typeof s.membres === "number") {
     $("#hp-membres").textContent = nombre(s.membres);
     $("#hp-en-ligne").textContent = nombre(s.en_ligne);
@@ -678,4 +674,81 @@ if (["index", "classement", "niveaux"].includes(PAGE)) {
   actualiser();
   setInterval(() => { if (!document.hidden) actualiser(); }, RAFRAICHISSEMENT_MS);
   document.addEventListener("visibilitychange", () => { if (!document.hidden && affiche) actualiser(); });
+}
+
+/* ============================================================ Accueil : effets */
+if (PAGE === "index") {
+  const fin = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const hx = $("#hx"), barre = $("#progression"), echo = $(".boss-echo span"), boss = $("#boss");
+
+  // Défilement : barre de lecture, héros qui s'efface, écho « WISS » qui glisse
+  let tic = false;
+  const auDefilement = () => {
+    if (tic) return; tic = true;
+    requestAnimationFrame(() => {
+      tic = false;
+      const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+      if (barre) barre.style.setProperty("--p", h > 0 ? (y / h).toFixed(4) : 0);
+      if (calme) return;
+      if (hx && y < hx.offsetHeight + 100) hx.style.setProperty("--sy", Math.round(y));
+      if (echo && boss) {
+        const r = boss.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < innerHeight) echo.style.setProperty("--ex", `${Math.round((r.top - innerHeight / 2) * -0.35 - 200)}px`);
+      }
+    });
+  };
+  addEventListener("scroll", auDefilement, { passive: true });
+  addEventListener("resize", auDefilement);
+  auDefilement();
+
+  if (!calme && fin) {
+    // Parallaxe à la souris dans le héros (lissée)
+    let cx = 0, cy = 0, tx = 0, ty = 0, raf = 0;
+    const lisse = () => {
+      raf = 0; cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+      hx.style.setProperty("--px", cx.toFixed(4)); hx.style.setProperty("--py", cy.toFixed(4));
+      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) raf = requestAnimationFrame(lisse);
+    };
+    hx.addEventListener("pointermove", (e) => {
+      tx = e.clientX / innerWidth * 2 - 1; ty = e.clientY / innerHeight * 2 - 1;
+      if (!raf) raf = requestAnimationFrame(lisse);
+    });
+
+    // Widget incliné en 3D + reflet
+    $$("[data-incline]").forEach((c) => {
+      c.addEventListener("pointermove", (e) => {
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.classList.add("actif");
+        c.style.setProperty("--ry", `${((x - 0.5) * 14).toFixed(2)}deg`);
+        c.style.setProperty("--rx", `${((0.5 - y) * 12).toFixed(2)}deg`);
+        c.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`); c.style.setProperty("--gy", `${(y * 100).toFixed(1)}%`);
+      });
+      c.addEventListener("pointerleave", () => { c.classList.remove("actif"); c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg"); });
+    });
+
+    // Boutons aimantés
+    $$("[data-aimant]").forEach((b) => {
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.setProperty("--mx", `${((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1)}px`);
+        b.style.setProperty("--my", `${((e.clientY - r.top - r.height / 2) * 0.32).toFixed(1)}px`);
+      });
+      b.addEventListener("pointerleave", () => { b.style.setProperty("--mx", "0px"); b.style.setProperty("--my", "0px"); });
+    });
+
+    // Projecteur qui suit la souris sur les cartes
+    document.addEventListener("pointermove", (e) => {
+      const c = e.target.closest && e.target.closest(".spot");
+      if (!c) return;
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--sx", `${e.clientX - r.left}px`); c.style.setProperty("--sy2", `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
+
+  // Photo de Wiss : au doigt, on touche pour révéler les couleurs
+  const photo = $(".boss-photo");
+  if (photo) {
+    photo.addEventListener("click", () => { if (!fin) photo.classList.toggle("revele"); });
+    photo.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); photo.classList.toggle("revele"); } });
+  }
 }
